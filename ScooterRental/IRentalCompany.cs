@@ -1,7 +1,7 @@
 ﻿
 namespace ScooterRental
 {
-    internal interface IRentalCompany
+    public interface IRentalCompany
     {
         /// <summary>
         /// Name of the company.

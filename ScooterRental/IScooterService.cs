@@ -1,7 +1,7 @@
 ﻿
 namespace ScooterRental
 {
-    internal interface IScooterService
+    public interface IScooterService
     {
         /// <summary>
         /// Add scooter.
