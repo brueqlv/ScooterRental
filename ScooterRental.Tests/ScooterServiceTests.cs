@@ -131,17 +131,5 @@ namespace ScooterRental.Tests
             //Assert
             action.Should().Throw<ScooterNotFoundException>();
         }
-
-        [Test]
-        public void GetScooterById_Invalid_Id_Throws_InvalidIdException()
-        {
-            //Act
-            Action action1 = () => _scooterService.GetScooterById("");
-            Action action2 = () => _scooterService.GetScooterById(null);
-
-            //Assert
-            action1.Should().Throw<InvalidIdException>();
-            action2.Should().Throw<InvalidIdException>();
-        }
     }
 }

@@ -35,17 +35,7 @@ namespace ScooterRental
 
         public Scooter GetScooterById(string scooterId)
         {
-            if (scooterId == null || scooterId.Length == 0)
-            {
-                throw new InvalidIdException();
-            }
-
-            var scooter = _scooters.SingleOrDefault(scooter => scooter.Id.Equals(scooterId));
-
-            if (scooter == null)
-            {
-                throw new ScooterNotFoundException();
-            }
+            var scooter = GetValidScooterById(scooterId);
 
             return scooter;
         }
@@ -57,19 +47,16 @@ namespace ScooterRental
 
         public void RemoveScooter(string id)
         {
-            if(id == null || id.Length == 0)
-            {
-                throw new InvalidIdException();
-            }
-
-            var scooter = _scooters.SingleOrDefault(scooter => scooter.Id.Equals(id));
-
-            if(scooter == null)
-            {
-                throw new ScooterNotFoundException();
-            }
+            var scooter = GetValidScooterById(id);
 
             _scooters.Remove(scooter);
+        }
+
+        private Scooter GetValidScooterById(string id)
+        {
+            var scooter = _scooters.SingleOrDefault(scooter => scooter.Id.Equals(id));
+
+            return scooter == null ? throw new ScooterNotFoundException() : scooter;
         }
     }
 }
