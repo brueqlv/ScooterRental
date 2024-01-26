@@ -1,5 +1,4 @@
-﻿
-namespace ScooterRental
+﻿namespace ScooterRental.Interfaces
 {
     public interface IRentalCalculatorService
     {

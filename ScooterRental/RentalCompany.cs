@@ -1,4 +1,6 @@
 ﻿
+using ScooterRental.Interfaces;
+
 namespace ScooterRental
 {
     public class RentalCompany : IRentalCompany
@@ -7,7 +9,7 @@ namespace ScooterRental
         private readonly IRentedScooterArchive _archive;
         private readonly IRentalCalculatorService _calculatorService;
 
-        public RentalCompany( string name, IScooterService scooterService, IRentedScooterArchive archive, IRentalCalculatorService calculatorService)
+        public RentalCompany(string name, IScooterService scooterService, IRentedScooterArchive archive, IRentalCalculatorService calculatorService)
         {
             Name = name;
             _scooterService = scooterService;

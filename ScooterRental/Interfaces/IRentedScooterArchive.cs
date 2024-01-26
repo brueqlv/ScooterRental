@@ -6,5 +6,7 @@ namespace ScooterRental
         void AddRentedScooter(RentedScooter scooter);
 
         RentedScooter EndRental(string scooterId, DateTime rentEnd);
+
+        List<RentedScooter> GetAllRentedScooterList();
     }
 }

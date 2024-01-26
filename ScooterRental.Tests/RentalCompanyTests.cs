@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
-using NUnit.Framework;
+using ScooterRental.Interfaces;
 
 namespace ScooterRental.Tests
 {

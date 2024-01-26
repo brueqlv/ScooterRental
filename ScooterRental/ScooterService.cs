@@ -1,6 +1,6 @@
 ﻿
 using ScooterRental.Exceptions;
-using System.Linq;
+using ScooterRental.Interfaces;
 
 namespace ScooterRental
 {
@@ -15,17 +15,17 @@ namespace ScooterRental
 
         public void AddScooter(string id, decimal pricePerMinute)
         {
-            if(string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 throw new InvalidIdException();
             }
 
-            if(pricePerMinute <= 0)
+            if (pricePerMinute <= 0)
             {
                 throw new InvalidPriceException();
             }
 
-            if(_scooters.Any(scooter => scooter.Id == id))
+            if (_scooters.Any(scooter => scooter.Id == id))
             {
                 throw new DublicateScooterException();
             }
