@@ -56,7 +56,7 @@ namespace ScooterRental
         {
             var scooter = _scooters.SingleOrDefault(scooter => scooter.Id.Equals(id));
 
-            return scooter == null ? throw new ScooterNotFoundException() : scooter;
+            return scooter == null ? throw new ScooterNotFoundException("Scooter with provided id doesn't exist.") : scooter;
         }
     }
 }

@@ -3,9 +3,9 @@
 namespace ScooterRental.Exceptions
 {
     [Serializable]
-    public class ScooterNotFoundException : Exception
+    public class InvalidDateException : Exception
     {
-        public ScooterNotFoundException(string v) : base(v)
+        public InvalidDateException() : base("Provided date is not valid.")
         {
         }
     }
