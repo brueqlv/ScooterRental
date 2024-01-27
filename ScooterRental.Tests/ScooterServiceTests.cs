@@ -38,7 +38,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void AddScooter_Invalid_Id_Provided_InvalidPIdException_Expected()
+        public void AddScooter_Invalid_Id_Provided_InvalidIdException_Expected()
         {
             //Act
             Action action = () => _scooterService.AddScooter("", 0.0m);
@@ -48,7 +48,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void AddScooter_Add_Dublicate_Scooter_DublicateScooterException_Expected()
+        public void AddScooter_Add_Duplicate_Scooter_DuplicateScooterException_Expected()
         {
             //Arrange
             _scooters.Add(new Scooter(_defaultStooterId, 0.1m));
@@ -57,7 +57,7 @@ namespace ScooterRental.Tests
             Action action = () => _scooterService.AddScooter(_defaultStooterId, 0.2m);
 
             //Assert
-            action.Should().Throw<DublicateScooterException>();
+            action.Should().Throw<DuplicateScooterException>();
         }
 
         [Test]
@@ -74,10 +74,26 @@ namespace ScooterRental.Tests
         }
 
         [Test]
+        public void RemoveScooter_Scooter_Still_Rented_Throws_CannotRemoveRentedScooterException()
+        {
+            //Arrange
+            Scooter scooter = new Scooter("1", 0.2m);
+            scooter.IsRented = true;
+            _scooters.Add(scooter);
+
+
+            //Act
+            Action action = () => _scooterService.RemoveScooter("1");
+
+            //Assert
+            action.Should().Throw<CannotRemoveRentedScooterException>();
+        }
+
+        [Test]
         public void RemoveScooter_NonExisting_Id_Provided_Scooter_ScooterNotFoundException()
         {
             //Act
-            Action action = () => _scooterService.RemoveScooter(_defaultStooterId); 
+            Action action = () => _scooterService.RemoveScooter(_defaultStooterId);
 
             //Assert
             action.Should().Throw<ScooterNotFoundException>();

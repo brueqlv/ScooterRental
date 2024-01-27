@@ -14,7 +14,7 @@ namespace ScooterRental.Tests
         private IRentalCalculatorService _rentalCalculator;
         private readonly Scooter _scooter = new Scooter("1", 0.2m) { IsRented = true };
 
-        private List<RentedScooter> _rentedScooterList = new List<RentedScooter>
+        private readonly List<RentedScooter> _rentedScooterList = new List<RentedScooter>
         {
             new RentedScooter("1", DateTime.Now.AddMinutes(-90), 0.2m) { RentEnd = DateTime.Now }, //18.0Eur
             new RentedScooter("2", new DateTime(2023, 1, 15, 8, 0, 0), 0.2m) { RentEnd = new DateTime(2023, 1, 15, 8, 30, 0) }, //6Eur
@@ -32,7 +32,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void CalculateRent_Under_Daily_Price_Limit_Should_Calculate_Rent_Corretly()
+        public void CalculateRent_Under_Daily_Price_Limit_Should_Calculate_Rent_Correctly()
         {
             //Assert
             DateTime now = DateTime.Now;
@@ -46,7 +46,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void CalculateRent_Over_Daily_Price_Limit_Should_Calculate_Rent_Corretly()
+        public void CalculateRent_Over_Daily_Price_Limit_Should_Calculate_Rent_Correctly()
         {
             //Assert
             DateTime startRentTime = new DateTime(2024, 01, 26, 08, 00, 00);
@@ -61,7 +61,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void CalculateRent_Rent_Over_Midnight_Should_Calculate_Rent_Corretly()
+        public void CalculateRent_Rent_Over_Midnight_Should_Calculate_Rent_Corrcetly()
         {
             //Assert
             DateTime startRentTime = new DateTime(2024, 01, 26, 23, 10, 00);
@@ -76,7 +76,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void CalculateRent_Rent_Over_Multiple_Days_Should_Calculate_Rent_Corretly()
+        public void CalculateRent_Rent_Over_Multiple_Days_Should_Calculate_Rent_Correctly()
         {
             //Assert
             DateTime startRentTime = new DateTime(2024, 01, 26, 23, 10, 00);
@@ -91,7 +91,7 @@ namespace ScooterRental.Tests
         }
 
         [Test]
-        public void CalculateRent_RentalRecord_Without_EndDate_Should_Calculate_Rent_Corretly()
+        public void CalculateRent_RentalRecord_Without_EndDate_Should_Calculate_Rent_Correctly()
         {
             //Assert
             DateTime startRentTime = DateTime.Now.AddMinutes(-19);
@@ -112,24 +112,24 @@ namespace ScooterRental.Tests
             decimal income2 = _rentalCalculator.CalculateIncome(2023, true);
             decimal income3 = _rentalCalculator.CalculateIncome(2024, false);
             decimal income4 = _rentalCalculator.CalculateIncome(2024, true);
+            decimal income5 = _rentalCalculator.CalculateIncome(null, false);
 
             //Assert
             income1.Should().Be(70m);
             income2.Should().Be(6m);
             income3.Should().Be(58m);
             income4.Should().Be(64m);
+            income5.Should().Be(64m);
         }
 
         [Test]
-        public void CalculateIncome_Invalid_ProvidedYear_Shoud_Throw_InvalidYearException()
+        public void CalculateIncome_Invalid_ProvidedYear_Should_Throw_InvalidYearException()
         {
             //Act
-            Action action1 = () => _rentalCalculator.CalculateIncome(2019, true);
-            Action action2 = () => _rentalCalculator.CalculateIncome(DateTime.Now.AddYears(1).Year, true);
+            Action action = () => _rentalCalculator.CalculateIncome(DateTime.Now.AddYears(1).Year, true);
 
             //Assert
-            action1.Should().Throw<InvalidYearException>();
-            action2.Should().Throw<InvalidYearException>();
+            action.Should().Throw<InvalidYearException>();
         }
     }
 }

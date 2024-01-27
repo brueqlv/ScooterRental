@@ -11,8 +11,9 @@ namespace ScooterRental.Tests
         private decimal _pricePerMinute = 0.2m;
 
         [Test]
-        public void Construcor_Should_Set_ScooterId_RentStart_PricePerMinute_Correctly()
+        public void Constructor_Should_Set_ScooterId_RentStart_PricePerMinute_Correctly()
         {
+            //Arrange
             var rentedScooter = new RentedScooter(_id, _startDate, _pricePerMinute);
 
             //Assert

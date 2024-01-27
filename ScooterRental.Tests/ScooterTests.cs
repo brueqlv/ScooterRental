@@ -18,5 +18,18 @@ namespace ScooterRental.Tests
             _scooter.PricePerMinute.Should().Be(0.2m);
             _scooter.IsRented.Should().BeFalse();
         }
+
+        [Test]
+        public void Property_IsRented_Sets_Correctly()
+        {
+            //Arrange
+            _scooter = new Scooter("1", 0.2m);
+
+            //Act
+            _scooter.IsRented = true;
+
+            //Assert
+            _scooter.IsRented.Should().BeTrue();
+        }
     }
 }

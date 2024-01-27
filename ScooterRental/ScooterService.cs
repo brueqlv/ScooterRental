@@ -1,6 +1,5 @@
 ﻿
 using ScooterRental.Exceptions;
-using ScooterRental.Interfaces;
 
 namespace ScooterRental
 {
@@ -27,7 +26,7 @@ namespace ScooterRental
 
             if (_scooters.Any(scooter => scooter.Id == id))
             {
-                throw new DublicateScooterException();
+                throw new DuplicateScooterException();
             }
 
             _scooters.Add(new Scooter(id, pricePerMinute));
@@ -49,6 +48,11 @@ namespace ScooterRental
         {
             var scooter = GetValidScooterById(id);
 
+            if (scooter.IsRented)
+            {
+                throw new CannotRemoveRentedScooterException();
+            }
+
             _scooters.Remove(scooter);
         }
 
@@ -56,7 +60,7 @@ namespace ScooterRental
         {
             var scooter = _scooters.SingleOrDefault(scooter => scooter.Id.Equals(id));
 
-            return scooter == null ? throw new ScooterNotFoundException("Scooter with provided id doesn't exist.") : scooter;
+            return scooter ?? throw new ScooterNotFoundException("Scooter with provided id doesn't exist.");
         }
     }
 }

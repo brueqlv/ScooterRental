@@ -6,7 +6,6 @@ namespace ScooterRental
     public class RentalCalculatorService : IRentalCalculatorService
     {
         private readonly decimal _maxDailyPrice = 20m;
-        private readonly int _companyStartDate = 2020;
         private readonly IRentedScooterArchive _scooterArchive;
         private readonly List<RentedScooter> _scooterList;
 
@@ -18,7 +17,7 @@ namespace ScooterRental
 
         public decimal CalculateIncome(int? year, bool includeNotCompletedRentals)
         {
-            if(year < _companyStartDate || year > DateTime.Now.Year)
+            if(year > DateTime.Now.Year)
             {
                 throw new InvalidYearException();
             }
@@ -78,7 +77,7 @@ namespace ScooterRental
 
             while(currentDay <= rentEndTime.Date)
             {
-                DateTime endOfCurrentDay = currentDay.Date.AddDays(1); //Gets midnight
+                DateTime endOfCurrentDay = currentDay.Date.AddDays(1);
                 DateTime dayEndTime = new DateTime();
 
                 if(currentDay == rentEndTime.Date)

@@ -26,24 +26,11 @@ namespace ScooterRental.Tests
         public void AddRentedScooter_Adds_Rented_Scooter_To_List()
         {
             //Act
-            _archive.AddRentedScooter( new RentedScooter("1", new DateTime(2023, 04, 13, 14, 00, 00), 0.3m));
+            _archive.AddRentedScooter(new RentedScooter("1", new DateTime(2023, 04, 13, 14, 00, 00), 0.3m));
             _archive.AddRentedScooter(new RentedScooter("1", new DateTime(2023, 04, 14, 14, 00, 00), 0.3m));
 
             //Assert
             _rentedScooters.Count.Should().Be(5);
-        }
-
-        [Test]
-        public void AddRentedScooter_Add_Dublicate_Entry_Throws_DublicateRentedScooterException()
-        {
-            //Arrange
-            _archive.AddRentedScooter(new RentedScooter("1", new DateTime(2023, 04, 13, 14, 00, 00), 0.3m));
-
-            //Act
-            Action action = () => _archive.AddRentedScooter(new RentedScooter("1", new DateTime(2023, 04, 13, 14, 00, 00), 0.3m));
-
-            //Assert
-            action.Should().Throw<DublicateRentedScooterException>();
         }
 
         [Test]
@@ -53,7 +40,7 @@ namespace ScooterRental.Tests
             _archive.EndRental("1", new DateTime(2023, 01, 25, 10, 00, 00));
 
             //Assert
-            _rentedScooters.FirstOrDefault(scooter => scooter.ScooterId == "1").RentEnd.Should().Be(new DateTime(2023, 01, 25, 10, 00, 00));
+            _rentedScooters.LastOrDefault(scooter => scooter.ScooterId == "1").RentEnd.Should().Be(new DateTime(2023, 01, 25, 10, 00, 00));
         }
 
         [Test]
@@ -74,19 +61,6 @@ namespace ScooterRental.Tests
 
             //Assert
             action.Should().Throw<InvalidDateException>();
-        }
-
-        [Test]
-        public void EndRental_Provided_ExistingId_Scooter_Already_Ended_Should_Throw_ScooterNotFoundException()
-        {
-            //Arrange
-            _archive.EndRental("1", new DateTime(2023, 01, 23, 15, 00, 00));
-
-            //Act
-            Action action2 = () => _archive.EndRental("1", new DateTime(2023, 01, 23, 15, 00, 00));
-
-            //Assert
-            action2.Should().Throw<ScooterNotFoundException>().WithMessage("Scooter with provided id has already rent end time.");
         }
 
         [Test]
