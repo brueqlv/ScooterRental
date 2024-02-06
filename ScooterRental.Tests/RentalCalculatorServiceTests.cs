@@ -28,7 +28,7 @@ namespace ScooterRental.Tests
             _mocker = new AutoMocker();
             _rentedScooterArchiveMock = _mocker.GetMock<IRentedScooterArchive>();
             _rentedScooterArchiveMock.Setup(archive => archive.GetAllRentedScooterList()).Returns(_rentedScooterList);
-            _rentalCalculator = new RentalCalculatorService(_rentedScooterArchiveMock.Object);
+            _rentalCalculator = _mocker.CreateInstance<RentalCalculatorService>();
         }
 
         [Test]
@@ -104,22 +104,18 @@ namespace ScooterRental.Tests
             rent.Should().Be(3.8m);
         }
 
-        [Test]
-        public void CalculateIncome_Should_Calculate_Income_Correctly()
+        [TestCase(null, true, 70)]
+        [TestCase(2023, true, 6)]
+        [TestCase(2024, false, 58)]
+        [TestCase(2024, true, 64)]
+        [TestCase(null, false, 64)]
+        public void CalculateIncome_Should_Calculate_Income_Correctly(int? year, bool includeNotCompletedRentals, decimal expectedIncome)
         {
             //Act
-            decimal income1 = _rentalCalculator.CalculateIncome(null, true);
-            decimal income2 = _rentalCalculator.CalculateIncome(2023, true);
-            decimal income3 = _rentalCalculator.CalculateIncome(2024, false);
-            decimal income4 = _rentalCalculator.CalculateIncome(2024, true);
-            decimal income5 = _rentalCalculator.CalculateIncome(null, false);
+            decimal income = _rentalCalculator.CalculateIncome(year, includeNotCompletedRentals);
 
             //Assert
-            income1.Should().Be(70m);
-            income2.Should().Be(6m);
-            income3.Should().Be(58m);
-            income4.Should().Be(64m);
-            income5.Should().Be(64m);
+            income.Should().Be(expectedIncome);
         }
 
         [Test]

@@ -26,33 +26,51 @@ namespace ScooterRental
 
             if(year == null)
             {
-                foreach(var rentedScooter in _scooterList)
+                income += CalculateIncomeForAllScooters(includeNotCompletedRentals);
+            }
+            else
+            {
+                income += CalculateIncomeForScootersByYear(year, includeNotCompletedRentals);
+            }
+
+            return income;
+        }
+
+        private decimal CalculateIncomeForScootersByYear(int? year, bool includeNotCompletedRentals)
+        {
+            decimal income = 0;
+
+            foreach (var rentedScooter in _scooterList)
+            {
+                if (rentedScooter.RentEnd == null && DateTime.Now.Year == year)
                 {
                     if (includeNotCompletedRentals)
                     {
                         income += CalculateRent(rentedScooter);
                     }
-                    else
-                    {
-                        if(rentedScooter.RentEnd != null)
-                        {
-                            income += CalculateRent(rentedScooter); 
-                        }
-                    }
+                }
+                else if (rentedScooter.RentEnd != null && ((DateTime)rentedScooter.RentEnd).Year == year)
+                {
+                    income += CalculateRent(rentedScooter);
                 }
             }
-            else
+
+            return income;
+        }
+
+        private decimal CalculateIncomeForAllScooters(bool includeNotCompletedRentals)
+        {
+            decimal income = 0;
+
+            foreach (var rentedScooter in _scooterList)
             {
-                foreach(var rentedScooter in _scooterList)
+                if (includeNotCompletedRentals)
                 {
-                    if( rentedScooter.RentEnd == null && DateTime.Now.Year == year)
-                    {
-                        if (includeNotCompletedRentals)
-                        {
-                            income += CalculateRent(rentedScooter);
-                        }
-                    }
-                    else if(rentedScooter.RentEnd != null && ((DateTime)rentedScooter.RentEnd).Year == year)
+                    income += CalculateRent(rentedScooter);
+                }
+                else
+                {
+                    if (rentedScooter.RentEnd != null)
                     {
                         income += CalculateRent(rentedScooter);
                     }
