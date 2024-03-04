@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScooterRental", "ScooterRental\ScooterRental.csproj", "{C833561B-C0B4-4A7A-A833-13906A29DC76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScooterRental.Tests", "ScooterRental.Tests\ScooterRental.Tests.csproj", "{9A1408D0-F8AE-44EE-A3BF-497B50986A0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C833561B-C0B4-4A7A-A833-13906A29DC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C833561B-C0B4-4A7A-A833-13906A29DC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C833561B-C0B4-4A7A-A833-13906A29DC76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1408D0-F8AE-44EE-A3BF-497B50986A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1408D0-F8AE-44EE-A3BF-497B50986A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1408D0-F8AE-44EE-A3BF-497B50986A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1408D0-F8AE-44EE-A3BF-497B50986A0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
